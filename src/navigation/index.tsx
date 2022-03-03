@@ -27,6 +27,7 @@ import LinkingConfiguration from "./LinkingConfiguration";
 import TabHistoryScreen from "../screens/history/TabHistoryScreen";
 import TabDashboardScreen from "../screens/dashboard/TabDashboardScreen";
 import TabUserScreen from "../screens/user/TabUserScreen";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Navigation({
   colorScheme,
@@ -100,6 +101,13 @@ function BottomTabNavigator() {
         component={TabDashboardScreen}
         options={{
           title: "Dashboard",
+          headerBackground: () => (
+            <LinearGradient
+              colors={[Colors[colorScheme].tint, Colors[colorScheme].shade]}
+              style={{ flex: 1 }}
+            />
+          ),
+
           tabBarIcon: ({ color }) => <TabBarIcon name="truck" color={color} />,
         }}
       />
