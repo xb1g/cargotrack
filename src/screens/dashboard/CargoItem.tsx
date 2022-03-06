@@ -1,8 +1,10 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Image, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { MonoText, SubtitleText, TitleText } from "../../components/StyledText";
 import { shadow } from "../../components/shadow/Shadows";
 import { AccentView, View } from "../../components/Themed";
+import Durian from "../../../assets/icons/durian";
+import { Row } from "../../components/Row";
 
 export type CargoItemProps = {
   type: string;
@@ -31,8 +33,19 @@ export function CargoItem({
       }}
     >
       <AccentView style={styles.container}>
-        <SubtitleText style={{ marginLeft: 10 }}>{plate}</SubtitleText>
-        <SubtitleText style={{ fontSize: 18 }}>{type}</SubtitleText>
+        {/* <Durian /> */}
+        <Row>
+          {type === "durian" ? (
+            <Image
+              source={require("../../../assets/icons/durian.png")}
+              style={styles.fruitIcon}
+            />
+          ) : (
+            <></>
+          )}
+          <SubtitleText style={{ marginLeft: 10 }}>{plate}</SubtitleText>
+        </Row>
+        {/* <SubtitleText style={{ fontSize: 18 }}>{type}</SubtitleText> */}
         <View style={styles.tempContainer}>
           <MonoText style={{ marginLeft: 10 }}>°C</MonoText>
           <MonoText style={{ marginLeft: 10 }}>
@@ -55,5 +68,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 5,
     borderRadius: 20,
+  },
+  fruitIcon: {
+    width: 50,
+    height: 50,
   },
 });
