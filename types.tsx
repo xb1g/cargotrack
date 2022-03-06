@@ -9,6 +9,7 @@ import {
   NavigatorScreenParams,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { CargoItemProps } from "./src/screens/dashboard/CargoItem";
 
 declare global {
   namespace ReactNavigation {
@@ -20,6 +21,14 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
+};
+
+export type DashboardStackParamList = {
+  Dashboard: undefined;
+  CargoItem: {
+    id: string;
+    item: CargoItemProps;
+  };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

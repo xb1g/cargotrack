@@ -70,6 +70,22 @@ function RootNavigator() {
   );
 }
 
+const DashboardStack = createNativeStackNavigator<RootTabParamList>();
+
+function DashboardNavigator() {
+  return (
+    <DashboardStack.Navigator>
+      <DashboardStack.Screen
+        name="TabDashboard"
+        component={TabDashboardScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </DashboardStack.Navigator>
+  );
+}
+
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
@@ -98,16 +114,9 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabDashboard"
-        component={TabDashboardScreen}
+        component={DashboardNavigator}
         options={{
-          title: "Dashboard",
-          headerBackground: () => (
-            <LinearGradient
-              colors={[Colors[colorScheme].tint, Colors[colorScheme].shade]}
-              style={{ flex: 1 }}
-            />
-          ),
-
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="truck" color={color} />,
         }}
       />
