@@ -19,6 +19,7 @@ import ModalScreen from "../screens/ModalScreen";
 import useColorScheme from "../hooks/useColorScheme";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import {
+  DashboardStackParamList,
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
@@ -28,6 +29,7 @@ import TabHistoryScreen from "../screens/history/TabHistoryScreen";
 import TabDashboardScreen from "../screens/dashboard/TabDashboardScreen";
 import TabUserScreen from "../screens/user/TabUserScreen";
 import { LinearGradient } from "expo-linear-gradient";
+import CargoScreen from "../screens/dashboard/CargoScreen";
 
 export default function Navigation({
   colorScheme,
@@ -70,14 +72,21 @@ function RootNavigator() {
   );
 }
 
-const DashboardStack = createNativeStackNavigator<RootTabParamList>();
+const DashboardStack = createNativeStackNavigator<DashboardStackParamList>();
 
 function DashboardNavigator() {
   return (
     <DashboardStack.Navigator>
       <DashboardStack.Screen
-        name="TabDashboard"
+        name="Dashboard"
         component={TabDashboardScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <DashboardStack.Screen
+        name="CargoInfo"
+        component={CargoScreen}
         options={{
           headerShown: false,
         }}

@@ -25,7 +25,7 @@ export type RootStackParamList = {
 
 export type DashboardStackParamList = {
   Dashboard: undefined;
-  CargoItem: {
+  CargoInfo: {
     id: string;
     item: CargoItemProps;
   };
