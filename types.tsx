@@ -7,6 +7,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import {
   CompositeScreenProps,
   NavigatorScreenParams,
+  RouteProp,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { CargoItemProps } from "./src/screens/dashboard/CargoItem";
@@ -26,8 +27,11 @@ export type RootStackParamList = {
 export type DashboardStackParamList = {
   Dashboard: undefined;
   CargoInfo: {
-    id: string;
-    item: CargoItemProps;
+    route: RouteProp<
+      { params: { id: string; item: CargoItemProps } },
+      "params"
+    >;
+    navigation: any;
   };
 };
 

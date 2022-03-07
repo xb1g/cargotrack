@@ -12,3 +12,16 @@ export function Row({ children }: any) {
     </View>
   );
 }
+
+export function CenteredRow({ children }: any) {
+  return (
+    <View
+      style={{
+        alignItems: "center",
+        flexDirection: "row",
+      }}
+    >
+      {children}
+    </View>
+  );
+}

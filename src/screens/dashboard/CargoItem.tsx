@@ -4,7 +4,8 @@ import { MonoText, SubtitleText, TitleText } from "../../components/StyledText";
 import { shadow } from "../../components/shadow/Shadows";
 import { AccentView, View } from "../../components/Themed";
 import Durian from "../../../assets/icons/durian";
-import { Row } from "../../components/Row";
+import { CenteredRow, Row } from "../../components/Row";
+import { FruitIcons } from "../../components/FruitIcons";
 
 export type CargoItemProps = {
   type: string;
@@ -14,6 +15,7 @@ export type CargoItemProps = {
     latitude: number;
     longitude: number;
   };
+  navigation?: any;
 };
 
 export function CargoItem({
@@ -21,6 +23,7 @@ export function CargoItem({
   plate,
   temperature,
   location,
+  navigation,
 }: CargoItemProps) {
   return (
     <Pressable
@@ -31,26 +34,31 @@ export function CargoItem({
         // backgroundColor: Colors.accent.primary,
         ...shadow.shadow2,
       }}
+      onPress={() => {
+        navigation.navigate("CargoInfo", {
+          id: "1",
+          item: {
+            type,
+            plate,
+            temperature,
+            location,
+          },
+        });
+      }}
     >
       <AccentView style={styles.container}>
         {/* <Durian /> */}
-        <Row>
-          {type === "durian" ? (
-            <Image
-              source={require("../../../assets/icons/durian.png")}
-              style={styles.fruitIcon}
-            />
-          ) : (
-            <></>
-          )}
+        <CenteredRow>
+          <FruitIcons type={type} />
           <SubtitleText style={{ marginLeft: 10 }}>{plate}</SubtitleText>
-        </Row>
+        </CenteredRow>
         {/* <SubtitleText style={{ fontSize: 18 }}>{type}</SubtitleText> */}
         <View style={styles.tempContainer}>
           <MonoText style={{ marginLeft: 10 }}>°C</MonoText>
           <MonoText style={{ marginLeft: 10 }}>
             {temperature.toFixed(2)}
           </MonoText>
+          <MonoText style={{ marginLeft: 10 }}>60%</MonoText>
         </View>
       </AccentView>
     </Pressable>
@@ -68,9 +76,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 5,
     borderRadius: 20,
-  },
-  fruitIcon: {
-    width: 50,
-    height: 50,
+    marginTop: 10,
   },
 });

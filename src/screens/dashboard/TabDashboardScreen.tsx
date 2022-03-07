@@ -40,8 +40,12 @@ export default function TabDashboardScreen({
           </TitleText>
         )}
         data={CargoItems}
-        keyExtractor={(item) => item.toString()}
-        renderItem={({ item }) => <CargoItem {...item} />}
+        keyExtractor={(item, i) => {
+          return item.type + i;
+        }}
+        renderItem={({ item }) => (
+          <CargoItem {...item} navigation={navigation} />
+        )}
       />
     </View>
   );
