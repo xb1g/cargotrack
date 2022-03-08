@@ -24,6 +24,12 @@ export type RootStackParamList = {
   NotFound: undefined;
 };
 
+export type AuthStackParamList = {
+  Auth: undefined;
+  Login: undefined;
+  Register: undefined;
+};
+
 export type DashboardStackParamList = {
   Dashboard: undefined;
   CargoInfo: {

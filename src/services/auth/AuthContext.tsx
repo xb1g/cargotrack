@@ -12,15 +12,23 @@ interface AuthContextInterface {
 type AuthContextProviderProps = {
   children: React.ReactNode;
 };
-export const AuthContext = createContext<AuthContextInterface | null>(null);
+export const AuthContext = createContext<AuthContextInterface>({
+  user: null,
+  userInfo: null,
+  onLogin: () => {},
+  onRegister: () => {},
+  onLogout: () => {},
+  // onUpdateUserInfo: () => {},
+});
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
   const [userInfo, setUserInfo] = useState(null);
 
-  const onLogin = (email, password) => {
+  const onLogin = (email: string, password: string) => {
     setIsLoading(true);
+    setUser("bank");
     // loginRequest(email, password)
     //   .then((u) => {
     //     // // console.log(u);
@@ -35,7 +43,12 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     //   });
   };
 
-  const onRegister = (email, password, repeatedPassword, userInfo) => {
+  const onRegister = (
+    email: string,
+    password: string,
+    repeatedPassword: string,
+    userInfo: string
+  ) => {
     setIsLoading(true);
     // console.log("PASS", password, repeatedPassword);
     // if (password !== repeatedPassword) {

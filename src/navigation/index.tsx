@@ -11,14 +11,15 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
+import React, { useContext } from "react";
+import { ColorSchemeName, Pressable, Text, View } from "react-native";
 
 import Colors from "../constants/Colors";
 import ModalScreen from "../screens/ModalScreen";
 import useColorScheme from "../hooks/useColorScheme";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import {
+  AuthStackParamList,
   DashboardStackParamList,
   RootStackParamList,
   RootTabParamList,
@@ -30,18 +31,23 @@ import TabDashboardScreen from "../screens/dashboard/TabDashboardScreen";
 import TabUserScreen from "../screens/user/TabUserScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import CargoScreen from "../screens/dashboard/CargoScreen";
+import { AuthContext } from "../services/auth/AuthContext";
+import { AuthScreen } from "../screens/auth/AuthScreen";
+import { LoginScreen } from "./../screens/auth/LoginScreen";
+import { RegisterScreen } from "./../screens/auth/RegisterScreen";
 
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const { user } = useContext(AuthContext);
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      {user ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 }
@@ -69,6 +75,18 @@ function RootNavigator() {
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
+  );
+}
+
+const AuthStack = createNativeStackNavigator<AuthStackParamList>();
+
+function AuthNavigator() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="Auth" component={AuthScreen} />
+      <AuthStack.Screen name="Login" component={LoginScreen} />
+      <AuthStack.Screen name="Register" component={RegisterScreen} />
+    </AuthStack.Navigator>
   );
 }
 
