@@ -3,7 +3,11 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, View as DefaultView } from "react-native";
+import {
+  Text as DefaultText,
+  TextInput,
+  View as DefaultView,
+} from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -29,6 +33,7 @@ type ThemeProps = {
 
 export type TextProps = ThemeProps & DefaultText["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
+export type InputProps = ThemeProps & TextInput["props"];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -56,3 +61,46 @@ export function AccentView(props: ViewProps) {
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
+
+export const EmailInput = (props: InputProps) => {
+  const { value, onChangeText, style, lightColor, darkColor, ...otherProps } =
+    props;
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "secondaryBackground"
+  );
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  return (
+    <TextInput
+      style={[{ padding: 10, backgroundColor, borderRadius: 5, color }, style]}
+      value={value}
+      textContentType="emailAddress"
+      autoCapitalize="none"
+      keyboardType="email-address"
+      onChangeText={onChangeText}
+      {...otherProps}
+    />
+  );
+};
+
+export const PasswordInput = (props: InputProps) => {
+  const { value, onChangeText, style, lightColor, darkColor, ...otherProps } =
+    props;
+
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "secondaryBackground"
+  );
+
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  return (
+    <TextInput
+      style={[{ padding: 10, backgroundColor, borderRadius: 5, color }, style]}
+      value={value}
+      textContentType="password"
+      secureTextEntry={true}
+      onChangeText={onChangeText}
+      {...otherProps}
+    />
+  );
+};
