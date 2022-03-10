@@ -21,78 +21,7 @@ export const LoginScreen = () => {
         style={{
           flex: 1,
         }}
-      >
-        {/* <AccountBackground>
-          <BackButton navigation={navigation} />
-          <View
-            style={{
-              backgroundColor: theme.colors.accent.primary,
-              paddingBottom: 200,
-              borderBottomLeftRadius: 200,
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: theme.colors.accent.quaternarym,
-                paddingBottom: 150,
-                borderBottomEndRadius: 250,
-                paddingTop: 100,
-              }}
-            >
-              <AuthSmallLogo />
-            </View>
-          </View>
-          <TContainer>
-            {error && (
-              <Spacer position="bottom" size="medium">
-                <Text variant="error">{error}</Text>
-              </Spacer>
-            )}
-            <Center>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 30,
-                  alignSelf: "flex-start",
-                  marginBottom: 20,
-                }}
-              >
-                Log in
-              </Text>
-              <AuthInput
-                label="Email"
-                value={email}
-                textContentType="emailAddress"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                onChangeText={(text) => setEmail(text)}
-              />
-              <Spacer size="large" />
-              <AuthInput
-                label="Password"
-                value={password}
-                textContentType="password"
-                secureTextEntry={true}
-                onChangeText={(text) => setPassword(text)}
-              />
-              <Spacer size="large" />
-              {!isLoading ? (
-                <AuthButton
-                  type="primary"
-                  size="large"
-                  onPress={() => {
-                    onLogin(email, password);
-                  }}
-                >
-                  Login
-                </AuthButton>
-              ) : (
-                <ActivityIndicator animating={true} color="#7ed957" />
-              )}
-            </Center>
-          </TContainer>
-        </AccountBackground> */}
-      </KeyboardAvoidingView>
+      ></KeyboardAvoidingView>
       <Pressable
         onPress={() => {
           onLogin();

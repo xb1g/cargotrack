@@ -5,172 +5,48 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
-import { SubtitleText } from "../../components/StyledText";
+import React, { useContext, useState } from "react";
+import { SubtitleText, TitleText } from "../../components/StyledText";
+import { PasswordInput, EmailInput } from "./../../components/Themed";
+import { AuthContext } from "../../services/auth/AuthContext";
 
 export const RegisterScreen = () => {
+  const { onRegister } = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatedPassword, setRepeatedPassword] = useState("");
+
+  const userInfo = {
+    username: "tonphai",
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+      style={{ flex: 1, padding: 20 }}
     >
+      <TitleText>Register</TitleText>
       <View>
-        {/* <BackButton
-          navigation={navigation}
-          onPress={() => {
-            page ? setPage(false) : navigation.goBack();
-          }}
-        /> */}
-        {/* <View
-          style={{
-            backgroundColor: "#5c0c34",
-            paddingBottom: 300,
-            borderBottomRightRadius: 500,
-            paddingTop: 100,
-          }}
-        >
-          <AuthSmallLogo />
-        </View> */}
-        <View>
-          <Text
-            // variant="label"
-            style={{
-              color: "white",
-              fontSize: 30,
-              alignSelf: "flex-start",
-              marginBottom: 20,
-            }}
-          >
-            {"Create an account"}
-          </Text>
-          {/* <DescTextI>Create your account.</DescTextI> */}
-          {/* {error && (
-            <Spacer position="bottom" size="medium">
-              <Text variant="error">{error}</Text>
-            </Spacer>
-          )} */}
-          {/* {!page ? (
-            <Center>
-              <AuthInput
-                label="Email"
-                value={email}
-                textContentType="emailAddress"
-                autoCapitalize="none"
-                returnKeyType={"next"}
-                keyboardType="email-address"
-                onChangeText={(text) => setEmail(text)}
-              />
-              <Spacer size="large" />
-              <AuthInput
-                label="Password"
-                value={password}
-                textContentType="password"
-                returnKeyType={"next"}
-                autoCapitalize="none"
-                secureTextEntry
-                onChangeText={(text) => setPassword(text)}
-              />
-              <Spacer size="large" />
-              <AuthInput
-                label="Repeat Password"
-                value={repeatedPassword}
-                textContentType="password"
-                returnKeyType={"next"}
-                autoCapitalize="none"
-                secureTextEntry
-                onChangeText={(text) => setRepeatedPassword(text)}
-              />
+        <SubtitleText>Email</SubtitleText>
+        <EmailInput onChangeText={setEmail} value={email} />
 
-              <Spacer size="large" />
+        <SubtitleText>Password</SubtitleText>
+        <PasswordInput value={password} onChangeText={setPassword} />
 
-              {!isLoading ? (
-                <AuthButton
-                  type="primary"
-                  size="large"
-                  onPress={() => {
-                    // console.log(email, password);
-                    // onRegister(email, password, repeatedPassword);
-                    setPage(true);
-                  }}
-                >
-                  next
-                </AuthButton>
-              ) : (
-                <ActivityIndicator animating={true} color="#7ed957" />
-              )}
-            </Center>
-          ) : (
-            <Center>
-              <AuthInput
-                label="Username"
-                value={userInfo.username}
-                autoCapitalize="none"
-                autoCorrect={false}
-                textContentType="username"
-                keyboardType="default"
-                maxLength={25}
-                onChangeText={(text) =>
-                  setUserInfo({ ...userInfo, username: text })
-                }
-              />
-              <Spacer size="large" />
-
-              <AuthInput
-                label="Name"
-                //placeholder="Thanawas"
-                value={userInfo.name}
-                keyboardType="default"
-                textContentType="givenName"
-                secureTextEntry={false}
-                autoCorrect={false}
-                onChangeText={(text) =>
-                  setUserInfo({ ...userInfo, name: text })
-                }
-              />
-              <Spacer size="large" />
-
-              <AuthInput
-                label="Lastname"
-                //placeholder="Sitdown"
-                value={userInfo.lastname}
-                textContentType="familyName"
-                secureTextEntry={false}
-                onChangeText={(text) =>
-                  setUserInfo({ ...userInfo, lastname: text })
-                }
-              />
-              <Spacer size="large" />
-              <AuthInput
-                label="Year of birth"
-                //placeholder="yyyy"
-                maxLength={4}
-                value={userInfo.yearOfBirth}
-                keyboardType="number-pad"
-                returnKeyType={"done"}
-                autoCapitalize="none"
-                onChangeText={(text) =>
-                  setUserInfo({ ...userInfo, yearOfBirth: text })
-                }
-              />
-              <Spacer size="large" />
-              <AuthButton
-                type="primary"
-                size="large"
-                onPress={() => {
-                  // console.log(email, password, repeatedPassword, userInfo);
-                  onRegister(email, password, repeatedPassword, userInfo);
-                  // console.log(error);
-                }}
-              >
-                register
-              </AuthButton>
-              <Spacer size="large" />
-              <Spacer size="large" />
-            </Center>
-          )} */}
-        </View>
+        <SubtitleText>Repeat password</SubtitleText>
+        <PasswordInput
+          value={repeatedPassword}
+          onChangeText={setRepeatedPassword}
+        />
       </View>
+
+      <Pressable
+        onPress={() => {
+          onRegister(email, password, repeatedPassword, userInfo);
+        }}
+      >
+        <SubtitleText>Register</SubtitleText>
+      </Pressable>
     </KeyboardAvoidingView>
   );
 };
