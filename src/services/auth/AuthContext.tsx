@@ -1,8 +1,10 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { createContext, useState } from "react";
 import { loginRequest, registerRequest } from "./AuthService";
 import { doc } from "firebase/firestore";
-import { db } from "../../../firebaseConfig";
+import { db, auth } from "../../../firebaseConfig";
 
+// import { auth } from "../../../firebase";
 interface AuthContextInterface {
   user: any;
   userInfo: any;
@@ -82,7 +84,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   const onLogout = () => {
-    setUser(null);
+    // setUser(null);
     // logoutRequest();
   };
 
