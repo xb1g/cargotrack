@@ -10,7 +10,7 @@ export function FruitIcons({
   size,
 }: {
   type: fruitTypes["type"];
-  size: number;
+  size?: number;
 }) {
   return (
     <Image

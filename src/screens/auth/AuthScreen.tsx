@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import React from "react";
 import { SubtitleText } from "../../components/StyledText";
 
-export const AuthScreen = ({ navigation }) => {
+export const AuthScreen = ({ navigation }: any) => {
   return (
     <View>
       <Text>AuthScreen</Text>

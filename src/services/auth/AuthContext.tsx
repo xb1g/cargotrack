@@ -1,14 +1,19 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { createContext, useState } from "react";
-import { loginRequest, registerRequest } from "./AuthService";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  User,
+  UserInfo,
+} from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
+import { loginRequest, logoutRequest, registerRequest } from "./AuthService";
 import { doc } from "firebase/firestore";
 import { db, auth } from "../../../firebaseConfig";
 
 // import { auth } from "../../../firebase";
 interface AuthContextInterface {
-  user: any;
-  userInfo: any;
-  onLogin: any;
+  user: User | null;
+  // userInfo: UserInfo | null;
+  onLogin: (email: string, password: string) => void;
   onRegister: (
     email: string,
     password: string,
@@ -24,27 +29,38 @@ interface AuthContextInterface {
 type AuthContextProviderProps = {
   children: React.ReactNode;
 };
-export const AuthContext = createContext<AuthContextInterface>({
-  user: null,
-  userInfo: null,
-  onLogin: () => {},
-  onRegister: () => {},
-  onLogout: () => {},
-  // onUpdateUserInfo: () => {},
-});
+
+export const AuthContext = createContext<AuthContextInterface>(
+  {} as AuthContextInterface
+);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<any>(null);
-  const [userInfo, setUserInfo] = useState(null);
+  // const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        console.log("got user");
+        console.log(user);
+        // setUserInfo(user.providerData[0]);
+      } else {
+        console.log("no user");
+        setUser(null);
+        // setUserInfo(null);
+      }
+    });
+  }, [user]);
 
   const onLogin = (email: string, password: string) => {
     setIsLoading(true);
     loginRequest(email, password)
       .then((u) => {
-        // // console.log(u);
-        setUser(u);
+        console.log(u);
+        setUser(u.user);
         setError(null);
         setIsLoading(false);
       })
@@ -82,28 +98,14 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       };
     });
     console.log(auth);
-    // createUserWithEmailAndPassword(auth, email, password);
-    // .then((userCredential) => {
-    //   // Signed in
-    //   const user = userCredential.user;
-    //   // ...
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   // ..
-    // });
   };
 
   const onLogout = () => {
-    // setUser(null);
-    // logoutRequest();
+    logoutRequest();
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, userInfo, onLogin, onRegister, onLogout }}
-    >
+    <AuthContext.Provider value={{ user, onLogin, onRegister, onLogout }}>
       {children}
     </AuthContext.Provider>
   );

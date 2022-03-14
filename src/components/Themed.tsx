@@ -7,6 +7,8 @@ import {
   Text as DefaultText,
   TextInput,
   View as DefaultView,
+  Pressable,
+  PressableProps as DefaultPressableProps,
 } from "react-native";
 
 import Colors from "../constants/Colors";
@@ -33,7 +35,8 @@ type ThemeProps = {
 
 export type TextProps = ThemeProps & DefaultText["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
-export type InputProps = ThemeProps & TextInput["props"];
+export type InputProps = TextInput["props"] & ThemeProps;
+export type PressableProps = ThemeProps & DefaultPressableProps;
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;

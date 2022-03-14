@@ -8,7 +8,7 @@ import { CenteredRow, Row } from "../../components/Row";
 import { FruitIcons } from "../../components/FruitIcons";
 
 export type CargoItemProps = {
-  type: string;
+  type: "mango" | "durian";
   plate: string;
   temperature: number;
   location: {
