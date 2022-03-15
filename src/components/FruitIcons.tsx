@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet } from "react-native";
 
 interface fruitTypes {
-  type: "mango" | "durian";
+  type: "mango" | "durian" | string;
 }
 
 export function FruitIcons({
