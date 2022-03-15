@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       if (user) {
         setUser(user);
         console.log("got user");
-        console.log(user);
+        // console.log(user);
         // setUserInfo(user.providerData[0]);
       } else {
         console.log("no user");
@@ -59,7 +59,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     setIsLoading(true);
     loginRequest(email, password)
       .then((u) => {
-        console.log(u);
+        // console.log(u);
         setUser(u.user);
         setError(null);
         setIsLoading(false);
