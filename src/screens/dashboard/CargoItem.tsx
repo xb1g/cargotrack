@@ -7,6 +7,7 @@ import Durian from "../../../assets/icons/durian";
 import { CenteredRow, Row } from "../../components/Row";
 import { FruitIcons } from "../../components/FruitIcons";
 
+
 export type CargoItemProps = {
   type: "mango" | "durian";
   plate: string;

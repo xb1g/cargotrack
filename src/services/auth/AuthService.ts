@@ -1,12 +1,5 @@
-// import * as firebase from "firebase";
-import { onSnapshot, doc } from "firebase/firestore";
-import {
-  createUserWithEmailAndPassword,
-  signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
-// import { db } from "../../../firebaseConfig";
+
+
 
 export const loginRequest = (email: string, password: string) =>
   signInWithEmailAndPassword(auth, email, password);

@@ -7,14 +7,14 @@ import {
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { SubtitleText, TitleText } from "../../components/StyledText";
-import { AuthContext } from "./../../services/auth/AuthContext";
+
 import { EmailInput } from "../../components/Themed";
 import { PasswordInput } from "./../../components/Themed";
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { onLogin } = useContext(AuthContext);
+  // const { onLogin } = useContext(AuthContext);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -30,7 +30,7 @@ export const LoginScreen = () => {
 
       <Pressable
         onPress={() => {
-          onLogin(email, password);
+          console.log (email, password);
         }}
       >
         <SubtitleText>Log in</SubtitleText>
