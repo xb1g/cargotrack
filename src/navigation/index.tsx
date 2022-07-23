@@ -31,7 +31,7 @@ import TabDashboardScreen from "../screens/dashboard/TabDashboardScreen";
 import TabUserScreen from "../screens/user/TabUserScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import CargoScreen from "../screens/dashboard/CargoScreen";
-import { AuthContext } from "../services/auth/AuthContext";
+
 import { AuthScreen } from "../screens/auth/AuthScreen";
 import { LoginScreen } from "./../screens/auth/LoginScreen";
 import { RegisterScreen } from "./../screens/auth/RegisterScreen";
@@ -39,9 +39,9 @@ import { RegisterScreen } from "./../screens/auth/RegisterScreen";
 export default function Navigation({
   colorScheme,
 }: {
-  colorScheme: ColorSchemeName;
+  colorScheme: ColorSchemeName;g
 }) {
-  const { user } = useContext(AuthContext);
+  const user = "s";
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -52,7 +52,7 @@ export default function Navigation({
   );
 }
 
-/**
+/**1
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
@@ -82,7 +82,11 @@ const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
 function AuthNavigator() {
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <AuthStack.Screen name="Auth" component={AuthScreen} />
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="Register" component={RegisterScreen} />

@@ -8,10 +8,10 @@ import {
 import React, { useContext, useState } from "react";
 import { SubtitleText, TitleText } from "../../components/StyledText";
 import { PasswordInput, EmailInput } from "./../../components/Themed";
-import { AuthContext } from "../../services/auth/AuthContext";
+
 
 export const RegisterScreen = () => {
-  const { onRegister } = useContext(AuthContext);
+  // const { onRegister } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,9 +41,9 @@ export const RegisterScreen = () => {
       </View>
 
       <Pressable
-        onPress={() => {
-          onRegister(email, password, repeatedPassword, userInfo);
-        }}
+        // onPress={() => {
+        //   onRegister(email, password, repeatedPassword, userInfo);
+        // }}
       >
         <SubtitleText>Register</SubtitleText>
       </Pressable>

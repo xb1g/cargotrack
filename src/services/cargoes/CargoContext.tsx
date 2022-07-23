@@ -1,8 +1,5 @@
-import { onAuthStateChanged, User } from "firebase/auth";
+
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { collection, doc, onSnapshot, query } from "firebase/firestore";
-import { db, auth } from "../../../firebaseConfig";
-import { AuthContext } from "../auth/AuthContext";
 
 interface CargoesContextInterface {
   cargoes: CargoType[];

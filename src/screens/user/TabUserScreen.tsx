@@ -1,20 +1,27 @@
 import { Image, Pressable, StyleSheet } from "react-native";
-import { updateProfile, User } from "firebase/auth";
+
 
 import { Text, View } from "../../components/Themed";
 import { RootTabScreenProps } from "../../../types";
-import { AuthContext } from "../../services/auth/AuthContext";
+
 import { useContext } from "react";
 import { SubtitleText } from "../../components/StyledText";
-import { auth } from "../../../firebaseConfig";
+
 import { Button } from "../../components/StyledButton";
 import { CenteredRow, Row } from "../../components/Row";
 
 export default function TabUserScreen({
   navigation,
 }: RootTabScreenProps<"TabUser">) {
-  const { onLogout, user } = useContext(AuthContext);
-  const currentUser = auth.currentUser;
+
+const user = {
+  photoURL: "https://i.pravatar.cc/300",
+  displayName: "John Doe",
+  uid : "123456789",
+}
+
+
+
   return (
     user && (
       <View style={styles.container}>
@@ -41,11 +48,11 @@ export default function TabUserScreen({
           />
           <SubtitleText>{user.displayName}</SubtitleText>
           <SubtitleText>{user.uid}</SubtitleText>
-          {/* <SubtitleText>{user.providerId}</SubtitleText> */}
-        </CenteredRow>
-        <Button onPress={() => onLogout()} darkColor={"#89ffce"}>
-          <SubtitleText>Logout</SubtitleText>
-        </Button>
+         {/* <SubtitleText>{user.providerId}</SubtitleText> */}
+         </CenteredRow>
+         {/* <Button onPress={() => onLogout()} darkColor={"#89ffce"}>
+           <SubtitleText>Logout</SubtitleText>
+         </Button>
         <Button
           onPress={() => {
             currentUser &&
@@ -64,7 +71,7 @@ export default function TabUserScreen({
           }}
         >
           <SubtitleText>auth</SubtitleText>
-        </Button>
+        </Button> */}
       </View>
     )
   );
