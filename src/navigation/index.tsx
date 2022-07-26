@@ -35,13 +35,15 @@ import CargoScreen from "../screens/dashboard/CargoScreen";
 import { AuthScreen } from "../screens/auth/AuthScreen";
 import { LoginScreen } from "./../screens/auth/LoginScreen";
 import { RegisterScreen } from "./../screens/auth/RegisterScreen";
+import { AuthContext } from "../services/auth/AuthContext";
 
 export default function Navigation({
   colorScheme,
 }: {
-  colorScheme: ColorSchemeName;g
+  colorScheme: ColorSchemeName;
 }) {
-  const user = "s";
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <NavigationContainer
       linking={LinkingConfiguration}

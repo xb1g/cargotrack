@@ -1,21 +1,25 @@
-import {
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { Pressable, KeyboardAvoidingView, Platform } from "react-native";
 import React, { useContext, useState } from "react";
 import { SubtitleText, TitleText } from "../../components/StyledText";
-import { PasswordInput, EmailInput } from "./../../components/Themed";
-
+import {
+  PasswordInput,
+  EmailInput,
+  Input,
+  View,
+  Text,
+} from "./../../components/Themed";
+import { Button } from "../../components/StyledButton";
+import { AuthContext } from "../../services/auth/AuthContext";
 
 export const RegisterScreen = () => {
   // const { onRegister } = useContext(AuthContext);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
+
+  const { register } = useContext(AuthContext);
 
   const userInfo = {
     username: "tonphai",
@@ -25,8 +29,19 @@ export const RegisterScreen = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1, padding: 20 }}
     >
+      {error ? (
+        <View
+          style={{ padding: 10, borderRadius: 10 }}
+          darkColor={"#ff434371"}
+          lightColor="#900222"
+        >
+          <Text>{error}</Text>
+        </View>
+      ) : null}
       <TitleText>Register</TitleText>
       <View>
+        <SubtitleText>Name</SubtitleText>
+        <Input value={name} onChangeText={setName} />
         <SubtitleText>Email</SubtitleText>
         <EmailInput onChangeText={setEmail} value={email} />
 
@@ -39,14 +54,27 @@ export const RegisterScreen = () => {
           onChangeText={setRepeatedPassword}
         />
       </View>
-
-      <Pressable
-        // onPress={() => {
-        //   onRegister(email, password, repeatedPassword, userInfo);
-        // }}
+      <Button
+        onPress={() => {
+          if (
+            name.length === 0 ||
+            email.length === 0 ||
+            password.length === 0 ||
+            repeatedPassword.length === 0
+          ) {
+            setError("Please fill in all fields");
+            return;
+          }
+          if (password !== repeatedPassword) {
+            setError("Passwords do not match");
+            return;
+          }
+          setError("");
+          register(email, password, name);
+        }}
       >
-        <SubtitleText>Register</SubtitleText>
-      </Pressable>
+        <Text>Register</Text>
+      </Button>
     </KeyboardAvoidingView>
   );
 };

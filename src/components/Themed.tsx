@@ -98,10 +98,60 @@ export const PasswordInput = (props: InputProps) => {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
   return (
     <TextInput
-      style={[{ padding: 10, backgroundColor, borderRadius: 5, color }, style]}
+      style={[
+        { padding: 10, backgroundColor, borderRadius: 5, color: "#000" },
+        style,
+      ]}
       value={value}
       textContentType="password"
       secureTextEntry={true}
+      onChangeText={onChangeText}
+      {...otherProps}
+    />
+  );
+};
+
+export const Input = (props: InputProps & { size?: "s" | "m" | "l" }) => {
+  const {
+    value,
+    onChangeText,
+    style,
+    lightColor,
+    darkColor,
+    size,
+    ...otherProps
+  } = props;
+
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "secondaryBackground"
+  );
+
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+
+  const placeholderTextColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "text"
+  );
+
+  const fontSize =
+    size === "s" ? 12 : size === "m" ? 17 : size === "l" ? 24 : 17;
+
+  return (
+    <TextInput
+      style={[
+        {
+          paddingVertical: 12.9,
+          paddingHorizontal: 10,
+          backgroundColor,
+          borderRadius: 5,
+          color,
+          fontSize,
+        },
+        style,
+      ]}
+      placeholderTextColor={placeholderTextColor}
+      value={value}
       onChangeText={onChangeText}
       {...otherProps}
     />
