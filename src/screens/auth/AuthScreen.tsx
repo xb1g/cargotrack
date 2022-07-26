@@ -12,11 +12,8 @@ const Tab = createMaterialTopTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen
-        name="LOgin" component={LoginScreen}
-        
-      />
-      <Tab.Screen name="Settings" component={RegisterScreen} />
+      <Tab.Screen name="Login" component={LoginScreen} />
+      <Tab.Screen name="Register" component={RegisterScreen} />
     </Tab.Navigator>
   );
 }
@@ -25,8 +22,8 @@ export const AuthScreen = ({ navigation }: any) => {
   return (
     <View style={{ flex: 1 }}>
       <SafeTop />
-      <TitleText>SIGN IN</TitleText>
 
+      <TitleText>LocLog</TitleText>
       <MyTabs />
     </View>
   );

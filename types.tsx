@@ -11,6 +11,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { CargoItemProps } from "./src/screens/dashboard/CargoItem";
+import { Module } from "./src/services/auth/AuthContext";
 
 declare global {
   namespace ReactNavigation {
@@ -32,6 +33,9 @@ export type AuthStackParamList = {
 
 export type DashboardStackParamList = {
   Dashboard: undefined;
+  ModuleScreen: {
+    module: Module;
+  };
   CargoInfo: {
     route: RouteProp<
       { params: { id: string; item: CargoItemProps } },

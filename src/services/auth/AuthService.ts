@@ -1,19 +1,58 @@
+import axios from "axios";
 
+const serverUrl = "https://goalist.xyz/loclog";
 
+export async function loginServer(email: string, password: string) {
+  const url = `${serverUrl}/login`;
+  try {
+    const res = await axios.post(url, { email, password });
+    const data = res.data;
 
-export const loginRequest = (email: string, password: string) =>
-  signInWithEmailAndPassword(auth, email, password);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw { error: error, message: "Login failed" };
+  }
+}
 
-export const logoutRequest = () => signOut(auth);
+export async function registerServer(
+  email: string,
+  password: string,
+  name: string
+) {
+  const url = `${serverUrl}/register`;
+  try {
+    const res = await axios.post(url, {
+      email,
+      password,
+      name,
+    });
+    const data = res.data;
 
-export const registerRequest = (email: string, password: string) =>
-  createUserWithEmailAndPassword(auth, email, password);
+    console.log(data, "from register server");
 
-// export const getUserInfo = (uid: string) => {
-//   return onSnapshot(doc(db, "users", uid), (u) => {
-//     // console.log(u.data());
-//     // u.data() && setUserInfo(u.data());
-//     const userInfo = u.data();
-//     // console.log(userInfo);
-//   });
-// };
+    return data;
+  } catch (error) {
+    console.log(error, "from register server");
+    throw { error: error, message: "Register failed" };
+  }
+}
+
+export async function linkModuleServer(id: string, userId: string) {
+  console.log("linking", id, userId);
+  try {
+    const res = await axios.post(serverUrl + "/loclog/link/" + id, {
+      userId,
+    });
+
+    console.log(res.data);
+
+    return res.data;
+  } catch (err) {
+    console.log("err fucking ice");
+    console.log(err);
+    return { error: err };
+  }
+}
+
+export async function getUserDataServer() {}
