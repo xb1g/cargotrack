@@ -33,7 +33,7 @@ export type AuthStackParamList = {
 
 export type DashboardStackParamList = {
   Dashboard: undefined;
-  ModuleScreen: {
+  Module: {
     module: Module;
   };
   CargoInfo: {
@@ -59,3 +59,10 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;
+
+export type DashboardTabScreenProps<
+  Screen extends keyof DashboardStackParamList
+> = CompositeScreenProps<
+  NativeStackScreenProps<DashboardStackParamList, Screen>,
+  NativeStackScreenProps<RootStackParamList>
+>;

@@ -153,6 +153,7 @@ export const Input = (props: InputProps & { size?: "s" | "m" | "l" }) => {
       placeholderTextColor={placeholderTextColor}
       value={value}
       onChangeText={onChangeText}
+      autoCapitalize="none"
       {...otherProps}
     />
   );

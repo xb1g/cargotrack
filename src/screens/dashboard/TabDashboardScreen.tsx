@@ -24,26 +24,6 @@ export default function TabDashboardScreen({
 }: RootTabScreenProps<"TabDashboard">) {
   const { user } = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
-  // const [CargoItems, setCargoItems] = useState<CargoItemProps[]>([
-  //   {
-  //     type: "durian",
-  //     plate: "กบ2213",
-  //     temperature: 0,
-  //     location: { latitude: 0, longitude: 0 },
-  //   },
-  //   {
-  //     type: "durian",
-  //     plate: "หก2134",
-  //     temperature: 0,
-  //     location: { latitude: 200, longitude: 0 },
-  //   },
-  //   {
-  //     type: "mango",
-  //     plate: "หก2733",
-  //     temperature: 0,
-  //     location: { latitude: 200, longitude: 0 },
-  //   },
-  // ]);
   return (
     <View style={styles.container}>
       <SafeTop />
@@ -60,7 +40,7 @@ export default function TabDashboardScreen({
       <FlatList
         data={user?.modules}
         keyExtractor={(item, i) => {
-          return item + i;
+          return item._id + i;
         }}
         renderItem={({ item }) => <ModuleItem module={item} />}
       />

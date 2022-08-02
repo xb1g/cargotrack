@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Button } from "./StyledButton";
-import { AddModule } from "../services/requests/add-module";
+import { AddModule } from "../services/requests/modules";
 import { SafeBottom, SafeTop } from "./SafeTop";
 import { TitleText } from "./StyledText";
 import { Modal } from "react-native";
@@ -28,8 +28,13 @@ export function AddIdModal({
         <Button
           onPress={() => {
             console.log(value);
-            setVisible(false);
-            linkModule(value);
+            linkModule(value)
+              .then((res) => {
+                setVisible(false);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
           }}
         >
           <Text>oik</Text>

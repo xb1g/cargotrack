@@ -1,7 +1,13 @@
 import { View, Text } from "react-native";
 import React, { createContext, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
-import { linkModuleServer, loginServer, registerServer } from "./AuthService";
+import {
+  getUserDataServer,
+  linkModuleServer,
+  loginServer,
+  registerServer,
+} from "./AuthService";
+import { saveModuleServer, triggerModuleServer } from "../requests/modules";
 
 export type Module = {
   _id: string;
@@ -9,6 +15,21 @@ export type Module = {
   name: string;
   status: string;
   data: any;
+  dataHistory: any;
+};
+
+export type Data = {
+  data: [
+    {
+      temp: number;
+      humidity: number;
+      timestamp: Date;
+      location: {
+        lat: number;
+        lng: number;
+      };
+    }
+  ];
 };
 
 export type User = {
@@ -24,7 +45,11 @@ type AuthContextInterface = {
   login: (email: string, password: string) => void;
   logout: () => void;
   register: (email: string, password: string, name: string) => void;
-  linkModule: (id: string) => void;
+
+  linkModule: (id: string) => Promise<any>;
+  saveModule: (module: Module) => Promise<any>;
+  triggerModule: (id: string) => Promise<any>;
+  stopModule: (id: string) => Promise<any>;
   error: string | undefined;
 };
 
@@ -59,6 +84,15 @@ export const AuthContextProvider = ({
       const userData = await getValueFor("user");
       console.log(userData, "UDA");
       if (userData) {
+        //get user from server
+        getUserDataServer(userData)
+          .then((res) => {
+            setUser(res);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+
         setUser(JSON.parse(userData));
         console.log("ud", userData);
       }
@@ -88,6 +122,7 @@ export const AuthContextProvider = ({
   }
 
   function logout() {
+    console.log("logout");
     setUser(undefined);
     save("user", "");
   }
@@ -112,22 +147,124 @@ export const AuthContextProvider = ({
         setLoading(false);
       });
   }
-  function linkModule(id: string) {
+
+  async function linkModule(id: string) {
     setLoading(true);
-    if (!user._id) {
+
+    if (!user?._id || !id) {
       console.log("no user id");
       setLoading(false);
       return;
     }
 
-    linkModuleServer(id, user._id)
+    return linkModuleServer(id, user._id)
       .then((res) => {
         setUser(res);
         console.log(res);
+        return res;
       })
       .catch((error) => {
         setError(error);
-        console.log(error);
+        console.error('e linl",', error);
+        throw error;
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  async function saveModule(module: Module) {
+    setLoading(true);
+
+    if (!user?._id || !module?._id) {
+      console.log("no user id");
+      setLoading(false);
+      return;
+    }
+
+    saveModuleServer(module)
+      .then((res: Module) => {
+        const newModules: Module[] = user.modules.map((m) => {
+          if (m._id === module._id) {
+            return res;
+          }
+          return m;
+        });
+
+        setUser({ ...user, modules: newModules });
+
+        console.log(res);
+        return res;
+      })
+      .catch((error) => {
+        setError(error);
+        console.error('e linl",', error);
+        throw error;
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  async function triggerModule(id: string) {
+    setLoading(true);
+
+    if (!user?._id || !id) {
+      console.log("no user id");
+      setLoading(false);
+      return;
+    }
+
+    return triggerModuleServer(id)
+      .then((res) => {
+        const newModules: Module[] = user.modules.map((m) => {
+          if (m._id === res._id) {
+            return res;
+          }
+          return m;
+        });
+
+        setUser({ ...user, modules: newModules });
+
+        console.log(res);
+        return res;
+      })
+      .catch((error) => {
+        setError(error);
+        console.error('e linl",', error);
+        throw error;
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+  async function stopModule(id: string) {
+    setLoading(true);
+
+    if (!user?._id || !id) {
+      console.log("no user id");
+      setLoading(false);
+      return;
+    }
+
+    return triggerModuleServer(id, true)
+      .then((res) => {
+        const newModules: Module[] = user.modules.map((m) => {
+          if (m._id === res._id) {
+            return res;
+          }
+          return m;
+        });
+
+        setUser({ ...user, modules: newModules });
+
+        console.log(res);
+        return res;
+      })
+      .catch((error) => {
+        setError(error);
+        console.error('e linl",', error);
+        throw error;
       })
       .finally(() => {
         setLoading(false);
@@ -136,7 +273,18 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, logout, register, error, linkModule }}
+      value={{
+        user,
+        loading,
+        login,
+        logout,
+        register,
+        error,
+        linkModule,
+        saveModule,
+        triggerModule,
+        stopModule,
+      }}
     >
       {children}
     </AuthContext.Provider>

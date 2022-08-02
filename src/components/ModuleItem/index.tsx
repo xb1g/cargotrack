@@ -26,16 +26,26 @@ export default function ModuleItem({ module }: { module: Module }) {
     >
       <AccentView style={styles.container}>
         {/* <Durian /> */}
-        <CenteredRow>
-          <SubtitleText style={{ marginLeft: 10 }}>{plate}</SubtitleText>
-        </CenteredRow>
+        <SubtitleText style={{ marginLeft: 5 }}>
+          {module.name || "unnamed"}
+        </SubtitleText>
         {/* <SubtitleText style={{ fontSize: 18 }}>{type}</SubtitleText> */}
         <View style={styles.tempContainer}>
-          <MonoText style={{ marginLeft: 10 }}>°C</MonoText>
-          <MonoText style={{ marginLeft: 10 }}>
-            {temperature.toFixed(2)}
-          </MonoText>
-          <MonoText style={{ marginLeft: 10 }}>60%</MonoText>
+          {module.status === "active" ? (
+            module.data ? (
+              <>
+                <MonoText style={{ marginLeft: 10 }}>°C</MonoText>
+                <MonoText style={{ marginLeft: 10 }}>
+                  {module.data.temperature.toFixed(2)}
+                </MonoText>
+                <MonoText style={{ marginLeft: 10 }}>60%</MonoText>
+              </>
+            ) : (
+              <MonoText style={{ marginLeft: 10 }}>No Data</MonoText>
+            )
+          ) : (
+            <MonoText style={{ marginLeft: 10 }}>{module.status}</MonoText>
+          )}
         </View>
       </AccentView>
     </Pressable>

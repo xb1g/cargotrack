@@ -36,6 +36,7 @@ import { AuthScreen } from "../screens/auth/AuthScreen";
 import { LoginScreen } from "./../screens/auth/LoginScreen";
 import { RegisterScreen } from "./../screens/auth/RegisterScreen";
 import { AuthContext } from "../services/auth/AuthContext";
+import ModuleScreen from "../screens/module/ModuleScreen";
 
 export default function Navigation({
   colorScheme,
@@ -108,6 +109,14 @@ function DashboardNavigator() {
           headerShown: false,
         }}
       />
+      <DashboardStack.Screen
+        name="Module"
+        component={ModuleScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+
       <DashboardStack.Screen
         name="CargoInfo"
         component={CargoScreen}

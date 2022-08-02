@@ -40,9 +40,11 @@ export async function registerServer(
 
 export async function linkModuleServer(id: string, userId: string) {
   console.log("linking", id, userId);
+  const url = `${serverUrl}/link/${id}`;
+  console.log(url);
   try {
-    const res = await axios.post(serverUrl + "/loclog/link/" + id, {
-      userId,
+    const res = await axios.post(url, {
+      id: userId,
     });
 
     console.log(res.data);
@@ -51,8 +53,19 @@ export async function linkModuleServer(id: string, userId: string) {
   } catch (err) {
     console.log("err fucking ice");
     console.log(err);
-    return { error: err };
+    throw err;
   }
 }
 
-export async function getUserDataServer() {}
+export async function getUserDataServer(id: string) {
+  const url = `${serverUrl}/users/${id}`;
+  try {
+    const res = await axios.get(url);
+    const data = res.data;
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw { error: error, message: "Get user data failed" };
+  }
+}

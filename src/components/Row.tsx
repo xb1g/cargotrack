@@ -1,25 +1,34 @@
-import { ViewProps } from "./Themed";
-import { View } from "react-native";
+import { View, ViewProps } from "./Themed";
 
-export function Row({ children }: any) {
+export function Row(props: ViewProps) {
+  const { style, children, ...rest } = props;
   return (
     <View
-      style={{
-        flexDirection: "row",
-      }}
+      style={[
+        {
+          flexDirection: "row",
+        },
+        style,
+      ]}
+      {...rest}
     >
       {children}
     </View>
   );
 }
 
-export function CenteredRow({ children }: any) {
+export function CenteredRow(props: ViewProps) {
+  const { children, style, ...rest } = props;
   return (
     <View
-      style={{
-        alignItems: "center",
-        flexDirection: "row",
-      }}
+      style={[
+        {
+          alignItems: "center",
+          flexDirection: "row",
+        },
+        style,
+      ]}
+      {...rest}
     >
       {children}
     </View>
