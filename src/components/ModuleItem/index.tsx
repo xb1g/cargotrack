@@ -32,11 +32,11 @@ export default function ModuleItem({ module }: { module: Module }) {
         {/* <SubtitleText style={{ fontSize: 18 }}>{type}</SubtitleText> */}
         <View style={styles.tempContainer}>
           {module.status === "active" ? (
-            module.data ? (
+            module.data.length > 0 ? (
               <>
                 <MonoText style={{ marginLeft: 10 }}>°C</MonoText>
                 <MonoText style={{ marginLeft: 10 }}>
-                  {module.data.temperature.toFixed(2)}
+                  {module?.data?.temperature?.toFixed(2) || "no temp"}
                 </MonoText>
                 <MonoText style={{ marginLeft: 10 }}>60%</MonoText>
               </>
