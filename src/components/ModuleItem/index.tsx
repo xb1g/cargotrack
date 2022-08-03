@@ -26,19 +26,47 @@ export default function ModuleItem({ module }: { module: Module }) {
     >
       <AccentView style={styles.container}>
         {/* <Durian /> */}
+        <View
+          style={
+            module.status == "active"
+              ? {
+                  backgroundColor: "#53f6d8",
+                  borderRadius: 20,
+                  width: 10,
+                  height: 10,
+                  margin: 5,
+                }
+              : {
+                  backgroundColor: "#ffc0cb",
+                  borderRadius: 20,
+                  width: 10,
+                  height: 10,
+                  margin: 5,
+                  ...shadow.shadow2,
+                }
+          }
+        />
         <SubtitleText style={{ marginLeft: 5 }}>
-          {module.name || "unnamed"}
+          {module.name || "id: " + module.id}
         </SubtitleText>
         {/* <SubtitleText style={{ fontSize: 18 }}>{type}</SubtitleText> */}
         <View style={styles.tempContainer}>
           {module.status === "active" ? (
-            module.data.length > 0 ? (
+            module?.data?.data?.length > 0 ? (
               <>
-                <MonoText style={{ marginLeft: 10 }}>°C</MonoText>
+                {/* <MonoText style={{ marginLeft: 10 }}></MonoText> */}
                 <MonoText style={{ marginLeft: 10 }}>
-                  {module?.data?.temperature?.toFixed(2) || "no temp"}
+                  {module?.data?.data[module.data.data.length - 1].timeStamp
+                    .split("T")[1]
+                    .split(".")[0]
+                    .substr(0, 5)}
                 </MonoText>
-                <MonoText style={{ marginLeft: 10 }}>60%</MonoText>
+                <MonoText style={{ marginLeft: 10 }}>
+                  {module?.data?.data[module.data.data.length - 1].temp}°C
+                </MonoText>
+                <MonoText style={{ marginLeft: 10 }}>
+                  {module?.data?.data[module.data.data.length - 1].humidity}%
+                </MonoText>
               </>
             ) : (
               <MonoText style={{ marginLeft: 10 }}>No Data</MonoText>

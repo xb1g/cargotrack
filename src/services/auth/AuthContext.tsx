@@ -157,10 +157,9 @@ export const AuthContextProvider = ({
       return;
     }
 
-    return linkModuleServer(id, user._id)
-      .then((res) => {
-        setUser(res);
-        console.log(res);
+    linkModuleServer(id, user._id)
+      .then((res: Module) => {
+        setUser({ ...user, modules: [...user.modules, res] });
         return res;
       })
       .catch((error) => {
