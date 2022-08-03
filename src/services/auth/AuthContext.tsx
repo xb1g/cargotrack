@@ -87,14 +87,6 @@ export const AuthContextProvider = ({
         //get user from server
         getUserDataServer(userData)
           .then((res) => {
-            // let data = [];
-            // res.modules.map((mod: Module) => {
-            //   if (mod.status == "active") {
-            //     let dataId = mod.data;
-            //     const data = await getDeliveryData(dataId);
-            //     mod.data = data;
-            //   }
-            // });
             setUser(res);
           })
           .catch((err) => {
