@@ -101,12 +101,19 @@ export default function ModuleScreen({
           <SubtitleText>Temperature</SubtitleText>
           <LineChart
             data={{
-              labels: moduleData?.data?.data.map((d) => {
-                return new Date(d.timeStamp).toLocaleTimeString(); // return typeof new Date();
+              labels: moduleData?.data?.data?.slice(-10)?.map((d, i) => {
+                if (i % 2 == 0)
+                  return new Date(d.timeStamp).toLocaleTimeString().slice(0, 5);
+                else return "";
               }),
+              // labels: moduleData?.data?.data?.slice(-10).map((d) => {
+              //   return new Date(d.timeStamp).toLocaleTimeString(); // return typeof new Date();
+              // }),
               datasets: [
                 {
-                  data: moduleData?.data?.data.map((d) => Number(d.temp)),
+                  data: moduleData?.data?.data
+                    .slice(-10)
+                    .map((d) => Number(d.temp)),
                 },
               ],
             }}
@@ -145,12 +152,23 @@ export default function ModuleScreen({
           <SubtitleText>Humidity</SubtitleText>
           <LineChart
             data={{
-              labels: moduleData?.data?.data.map((d) => {
-                return new Date(d.timeStamp).toLocaleTimeString(); // return typeof new Date();
+              labels: moduleData?.data?.data?.slice(-10)?.map((d, i) => {
+                if (i % 2 == 0)
+                  return new Date(d.timeStamp).toLocaleTimeString().slice(0, 5);
+                else return ""; // return typeof new Date();
+                // return new Date(d.timeStamp).toLocaleTimeString().slice(2) ==
+                //   new Date(moduleData.data.data.slice(-10)[i - 1].timeStamp)
+                //     .toLocaleTimeString()
+                //     .slice(2)
+                //   ? "o"
+                //   : "s"; // return typeof new Date();
+                return i;
               }),
               datasets: [
                 {
-                  data: moduleData?.data?.data.map((d) => Number(d.humidity)),
+                  data: moduleData?.data?.data
+                    ?.slice(-10)
+                    .map((d) => Number(d.humidity)),
                 },
               ],
             }}
@@ -196,7 +214,7 @@ export default function ModuleScreen({
               borderRadius: 16,
             }}
           >
-            {moduleData?.data?.data?.map((d, index) => {
+            {/* {moduleData?.data?.data?.map((d, index) => {
               return (
                 <Marker
                   key={d.timeStamp + index + "MARK"}
@@ -206,7 +224,7 @@ export default function ModuleScreen({
                   }}
                 />
               );
-            })}
+            })} */}
           </MapView>
           {/* <FlatList
           data={moduleData.data.data}
