@@ -5,7 +5,7 @@ import { SafeTop } from "../../components/SafeTop";
 import { LoginScreen } from "./LoginScreen";
 import { RegisterScreen } from "./RegisterScreen";
 import { Text, View } from "../../components/Themed";
-import { Pressable } from "react-native";
+import { Image, Pressable } from "react-native";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,7 +22,10 @@ export const AuthScreen = ({ navigation }: any) => {
   return (
     <View style={{ flex: 1 }}>
       <SafeTop />
-
+      <Image
+        source={require("../../../assets/images/loclogbig.png")}
+        style={{ width: 1186, height: 314 }}
+      />
       <TitleText>LocLog</TitleText>
       <MyTabs />
     </View>
