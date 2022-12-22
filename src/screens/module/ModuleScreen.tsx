@@ -84,7 +84,18 @@ export default function ModuleScreen({
         />
       </CenteredRow>
       <View style={{ marginHorizontal: 20 }}>
-        <Text>{module.status}</Text>
+        <CenteredRow>
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              borderRadius: 30,
+              margin: 10,
+              backgroundColor: module.status == "active" ? "green" : "red",
+            }}
+          />
+          <Text>{module.status}</Text>
+        </CenteredRow>
         <SubtitleText> id: {module.id}</SubtitleText>
       </View>
       <CenteredRow style={{ alignSelf: "center", margin: 10 }}>

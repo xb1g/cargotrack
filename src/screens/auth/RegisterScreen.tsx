@@ -21,9 +21,6 @@ export const RegisterScreen = () => {
 
   const { register } = useContext(AuthContext);
 
-  const userInfo = {
-    username: "tonphai",
-  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

@@ -59,10 +59,12 @@ export async function linkModuleServer(id: string, userId: string) {
 
 export async function getUserDataServer(id: string) {
   const url = `${serverUrl}/users/${id}`;
+  console.log(url, "uuu[pp[p");
   try {
     const res = await axios.get(url);
     const data = res.data;
 
+    console.log("serdadada", data);
     return data;
   } catch (error) {
     console.log(error);

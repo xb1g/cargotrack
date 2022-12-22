@@ -78,14 +78,13 @@ export const AuthContextProvider = ({
   // get userData from secure store
   useEffect(() => {
     console.log("gettig user from secure store");
-
-    setUser(undefined);
     (async () => {
       const userData = await getValueFor("user");
       console.log(userData, "UDA");
       if (userData) {
+        const udata = JSON.parse(userData);
         //get user from server
-        getUserDataServer(userData)
+        getUserDataServer(udata._id)
           .then((res) => {
             setUser(res);
           })
@@ -110,7 +109,13 @@ export const AuthContextProvider = ({
             email: user.email,
             _id: user._id,
           })
-        );
+        )
+          .then(() => {
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((error) => {
         console.log("eeee", error);
@@ -124,7 +129,13 @@ export const AuthContextProvider = ({
   function logout() {
     console.log("logout");
     setUser(undefined);
-    save("user", "");
+    save("user", "")
+      .then((res) => {
+        console.log("user deleted");
+      })
+      .catch((err) => {
+        console.log("error deleting user");
+      });
   }
 
   function register(email: string, password: string, name: string) {
@@ -138,7 +149,13 @@ export const AuthContextProvider = ({
             email: user.email,
             _id: user._id,
           })
-        );
+        )
+          .then((res) => {
+            console.log("user saved");
+          })
+          .catch((err) => {
+            console.log("error saving user");
+          });
       })
       .catch((error) => {
         setError(error);

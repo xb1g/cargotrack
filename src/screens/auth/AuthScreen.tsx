@@ -24,9 +24,9 @@ export const AuthScreen = ({ navigation }: any) => {
       <SafeTop />
       <Image
         source={require("../../../assets/images/loclogbig.png")}
-        style={{ width: 1186, height: 314 }}
+        style={{ width: "80%", height: 100, alignSelf: "center" }}
+        resizeMode="contain"
       />
-      <TitleText>LocLog</TitleText>
       <MyTabs />
     </View>
   );

@@ -17,7 +17,7 @@ export const LoginScreen = () => {
 
   useEffect(() => {
     if (AuthError) {
-      setError(AuthError.message);
+      setError(AuthError?.message);
     }
   }, [AuthError]);
   // const { onLogin } = useContext(AuthContext);

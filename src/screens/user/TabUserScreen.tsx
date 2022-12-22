@@ -19,12 +19,12 @@ export default function TabUserScreen({
     <View style={styles.container}>
       <CenteredRow>
         <View>
-          <SubtitleText>{user.email}</SubtitleText>
-          <SubtitleText>{user.name}</SubtitleText>
+          <SubtitleText>{user?.email}</SubtitleText>
+          <SubtitleText>{user?.name}</SubtitleText>
         </View>
         {/* <SubtitleText>{user.providerId}</SubtitleText> */}
       </CenteredRow>
-      <Button onPress={() => logout()} darkColor={"#89ffce"}>
+      <Button onPress={() => logout()} darkColor={"#4d0000"}>
         <SubtitleText>Logout</SubtitleText>
       </Button>
       {/* <Button onPress={() => onLogout()} darkColor={"#89ffce"}>
@@ -56,6 +56,7 @@ export default function TabUserScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
   },
   title: {
     fontSize: 20,
